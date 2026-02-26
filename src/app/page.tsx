@@ -1,16 +1,42 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLibraryStore } from '@/store/libraryStore'
 import { SheetCard } from '@/components/sheets/SheetCard'
 import { NewSheetButton } from '@/components/sheets/NewSheetButton'
+import { SmartCanvas } from '@/components/canvas/SmartCanvas'
 
 export default function DashboardPage() {
   const { sheets, loaded, loadLibrary } = useLibraryStore()
+  const [sheetId, setSheetId] = useState<string | null>(null)
+
+  // Handle GitHub Pages SPA redirect — check for ?route= param
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const route = params.get('route')
+    if (route) {
+      const match = route.match(/^\/sheet\/([^/]+)/)
+      if (match) {
+        setSheetId(match[1])
+        window.history.replaceState(null, '', '/SMARTSHEET/sheet/' + match[1] + '/')
+        return
+      }
+    }
+    // Also check if we're already on a sheet path (direct navigation in dev)
+    const pathMatch = window.location.pathname.match(/\/sheet\/([^/]+)/)
+    if (pathMatch) {
+      setSheetId(pathMatch[1])
+    }
+  }, [])
 
   useEffect(() => {
     if (!loaded) loadLibrary()
   }, [loaded, loadLibrary])
+
+  // If a sheet route was detected, render the canvas
+  if (sheetId) {
+    return <SmartCanvas sheetId={sheetId} />
+  }
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
