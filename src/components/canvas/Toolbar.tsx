@@ -2,7 +2,6 @@
 
 import { useCallback, useRef } from 'react'
 import { useReactFlow } from '@xyflow/react'
-import Link from 'next/link'
 import { useSheetStore } from '@/store/sheetStore'
 import type { NodeType } from '@/types'
 
@@ -38,13 +37,13 @@ export function Toolbar() {
   return (
     <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 px-3 py-2 bg-zinc-900/90 backdrop-blur-sm border border-zinc-700 rounded-2xl shadow-2xl">
       {/* Back to dashboard */}
-      <Link
-        href="/"
+      <button
+        onClick={() => { window.location.href = '/SMARTSHEET/' }}
         className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors"
         title="Back to dashboard"
       >
         ←
-      </Link>
+      </button>
 
       {/* Divider */}
       <div className="w-px h-6 bg-zinc-700" />
