@@ -98,8 +98,8 @@ function CanvasInner({ sheetId }: SmartCanvasProps) {
           style: { stroke: '#6366f1', strokeWidth: 2 },
         }}
         selectionOnDrag
+        panOnDrag={[1]}
         selectionMode={SelectionMode.Partial}
-        panOnDrag={[1, 2]}
         fitView
         fitViewOptions={{ padding: 0.3 }}
         proOptions={{ hideAttribution: true }}
