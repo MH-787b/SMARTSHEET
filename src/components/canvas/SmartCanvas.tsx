@@ -8,6 +8,7 @@ import {
   Controls,
   MiniMap,
   BackgroundVariant,
+  SelectionMode,
   type NodeMouseHandler,
   type Node,
 } from '@xyflow/react'
@@ -96,6 +97,9 @@ function CanvasInner({ sheetId }: SmartCanvasProps) {
           type: 'smoothstep',
           style: { stroke: '#6366f1', strokeWidth: 2 },
         }}
+        selectionOnDrag
+        selectionMode={SelectionMode.Partial}
+        panOnDrag={[1, 2]}
         fitView
         fitViewOptions={{ padding: 0.3 }}
         proOptions={{ hideAttribution: true }}
